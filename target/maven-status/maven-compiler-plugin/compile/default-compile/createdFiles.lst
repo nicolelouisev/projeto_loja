@@ -1,0 +1,10 @@
+com\example\projetoloja\controller\ProdutoController.class
+com\example\projetoloja\model\Categoria.class
+com\example\projetoloja\repository\ProdutoRepository.class
+com\example\projetoloja\service\CategoriaService.class
+com\example\projetoloja\model\Produto.class
+com\example\projetoloja\repository\CategoriaRepository.class
+com\example\projetoloja\ProjetolojaApplication.class
+com\example\projetoloja\exception\GlobalExceptionHandler.class
+com\example\projetoloja\service\ProdutoService.class
+com\example\projetoloja\controller\CategoriaController.class
