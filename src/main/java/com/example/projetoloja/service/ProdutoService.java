@@ -65,27 +65,21 @@ public class ProdutoService {
     }
 
     public Produto atualizarProduto(Long id, Produto produto) {
-        log.info("Atualizando produto ID: {}", id);
         Produto existente = buscarPorId(id);
 
-        if (!produto.getNome().equalsIgnoreCase(existente.getNome()) ||
-            !produto.getCategoria().equals(existente.getCategoria())) {
+        // Verifica se está tentando atualizar para um nome/categoria que já existe em outro produto
+        boolean existeDuplicado = produtoRepository.existsByNomeAndCategoria(produto.getNome(), produto.getCategoria());
 
-            boolean existe = produtoRepository.existsByNomeAndCategoria(
-                    produto.getNome(), produto.getCategoria());
+        boolean mesmoProduto = existente.getNome().equalsIgnoreCase(produto.getNome())
+                && existente.getCategoria().getId().equals(produto.getCategoria().getId());
 
-            if (existe) {
-                log.warn("Produto duplicado: nome '{}' já existe na categoria '{}'", 
-                    produto.getNome(), produto.getCategoria().getNome());
-                throw new RuntimeException("Produto com esse nome já existe na mesma categoria.");
-            }
+        if (existeDuplicado && !mesmoProduto) {
+            throw new RuntimeException("Produto com esse nome já existe na mesma categoria.");
         }
 
         validarProduto(produto);
         produto.setId(id);
-        Produto atualizado = produtoRepository.save(produto);
-        log.info("Produto ID {} atualizado com sucesso", id);
-        return atualizado;
+        return produtoRepository.save(produto);
     }
 
     public void deletarProduto(Long id) {
