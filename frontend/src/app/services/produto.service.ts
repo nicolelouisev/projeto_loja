@@ -1,10 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface Categoria {
   id: number;
-  nome: string;
+  nome?: string;
 }
 
 export interface Produto {
@@ -29,8 +29,17 @@ export class ProdutoService {
     return this.http.get<any>(this.API); // retorna paginado
   }
 
+  buscarPorId(id: number): Observable<Produto> {
+    return this.http.get<Produto>(`${this.API}/${id}`);
+  }
+
+
   criar(produto: Produto): Observable<Produto> {
-    return this.http.post<Produto>(this.API, produto);
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.post<Produto>(this.API, produto, httpOptions);
   }
 
   buscarPorNomeECategoria(nome: string, categoria: string): Observable<any> {
@@ -39,8 +48,14 @@ export class ProdutoService {
 
 
   atualizar(id: number, produto: Produto): Observable<Produto> {
-    return this.http.put<Produto>(`${this.API}/${id}`, produto);
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+
+    return this.http.put<Produto>(`${this.API}/${id}`, produto, httpOptions);
   }
+
+
 
   deletar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API}/${id}`);

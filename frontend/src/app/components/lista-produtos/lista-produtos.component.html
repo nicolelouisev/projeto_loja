@@ -7,10 +7,15 @@
   <button (click)="buscarComFiltros()">Buscar</button>
 </div>
 
+<!-- Botão de novo produto -->
+<button [routerLink]="['/produto/novo']">Novo Produto</button>
+
 <!-- Lista -->
 <ul>
   <li *ngFor="let produto of produtos">
     <strong>{{ produto.nome }}</strong> - R$ {{ produto.preco }}<br>
-    Categoria: {{ produto.categoria.nome }}
+    Categoria: {{ produto.categoria?.nome || 'Sem categoria' }}
+    <button [routerLink]="['/produto/editar', produto.id]">Editar</button>
+    <button (click)="deletar(produto)">Excluir</button>
   </li>
 </ul>

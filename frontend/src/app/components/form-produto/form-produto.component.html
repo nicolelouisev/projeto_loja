@@ -1,0 +1,56 @@
+<h2>{{ modoEdicao ? 'Editar Produto' : 'Novo Produto' }}</h2>
+
+<form #produtoForm="ngForm" (ngSubmit)="salvar()">
+  <label>
+    Nome:
+    <input type="text" name="nome" [(ngModel)]="produto.nome" required />
+  </label>
+  <div *ngIf="produtoForm.submitted && !produto.nome" style="color:red;">
+    Nome é obrigatório
+  </div>
+
+  <br />
+
+  <label>
+    Descrição:
+    <input type="text" name="descricao" [(ngModel)]="produto.descricao" />
+  </label>
+
+  <br />
+
+  <label>
+    Preço:
+    <input type="number" name="preco" [(ngModel)]="produto.preco" required min="0.01" step="0.01" />
+  </label>
+  <div *ngIf="produtoForm.submitted && produto.preco < 0.01" style="color:red;">
+    Preço deve ser maior que zero
+  </div>
+
+  <br />
+
+  <label>
+    Quantidade em Estoque:
+    <input type="number" name="quantidadeEstoque" [(ngModel)]="produto.quantidadeEstoque" required min="0" />
+  </label>
+  <div *ngIf="produtoForm.submitted && produto.quantidadeEstoque < 0" style="color:red;">
+    Quantidade deve ser maior ou igual a zero
+  </div>
+
+  <br />
+
+  <label>
+    Categoria:
+    <select name="categoria" [(ngModel)]="produto.categoria" required>
+      <option *ngFor="let cat of categorias" [ngValue]="cat">{{ cat.nome }}</option>
+    </select>
+
+  </label>
+  <div *ngIf="produtoForm.submitted && !produto.categoria?.id" style="color:red;">
+    Categoria é obrigatória
+  </div>
+
+  <br /><br />
+
+  <button type="submit">Salvar</button>
+  <button type="button" (click)="cancelar()">Cancelar</button>
+</form>
