@@ -33,12 +33,10 @@ export class ProdutoService {
     return this.http.post<Produto>(this.API, produto);
   }
 
-  buscarPorNomeECategoria(nome: string, categoria: string): Observable<Produto[]> {
-    const params = new HttpParams()
-      .set('nome', nome)
-      .set('categoria', categoria);
-    return this.http.get<Produto[]>(`${this.API}/buscar`, { params });
+  buscarPorNomeECategoria(nome: string, categoria: string): Observable<any> {
+    return this.http.get(`${this.API}/buscar?nome=${nome}&categoria=${categoria}`);
   }
+
 
   atualizar(id: number, produto: Produto): Observable<Produto> {
     return this.http.put<Produto>(`${this.API}/${id}`, produto);
