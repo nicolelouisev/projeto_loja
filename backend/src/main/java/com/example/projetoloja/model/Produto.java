@@ -3,6 +3,7 @@ package com.example.projetoloja.model;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.DecimalMin;
@@ -38,7 +39,7 @@ public class Produto {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    @JsonBackReference
+    @JsonIgnoreProperties("produtos")
     private Categoria categoria;
 
     public Produto() {}
