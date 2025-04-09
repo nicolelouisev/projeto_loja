@@ -25,7 +25,7 @@ export class ProdutoService {
 
   constructor(private http: HttpClient) {}
 
-  listarTodos(): Observable<any> {
+  listarProdutos(): Observable<any> {
     return this.http.get<any>(this.API); // retorna paginado
   }
 
