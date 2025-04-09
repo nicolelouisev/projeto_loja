@@ -30,7 +30,7 @@ public class ProdutoController {
         this.produtoService = produtoService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) {
         Produto salvo = produtoService.salvarProduto(produto);
         return ResponseEntity.ok(salvo);
