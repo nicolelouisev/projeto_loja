@@ -1,21 +1,37 @@
 <h2>Lista de Produtos</h2>
 
 <!-- Filtros -->
-<div>
+<div style="margin-bottom: 1rem;">
   <input type="text" placeholder="Buscar por nome" [(ngModel)]="filtroNome">
   <input type="text" placeholder="Buscar por categoria" [(ngModel)]="filtroCategoria">
   <button (click)="buscarComFiltros()">Buscar</button>
+  <button [routerLink]="['/produto/novo']" style="float: right;">Novo Produto</button>
 </div>
 
-<!-- Botão de novo produto -->
-<button [routerLink]="['/produto/novo']">Novo Produto</button>
+<!-- Tabela -->
+<table border="1" cellpadding="8" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+  <thead style="background-color: #f0f0f0;">
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Preço</th>
+      <th>Estoque</th>
+      <th>Categoria</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let produto of produtos">
+      <td>{{ produto.nome }}</td>
+      <td>{{ produto.descricao }}</td>
+      <td>R$ {{ produto.preco }}</td>
+      <td>{{ produto.quantidadeEstoque }}</td>
+      <td>{{ produto.categoria.nome }}</td>
+      <td>
+        <button [routerLink]="['/produto/editar', produto.id]">Editar</button>
+        <button (click)="deletar(produto.id)">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-<!-- Lista -->
-<ul>
-  <li *ngFor="let produto of produtos">
-    <strong>{{ produto.nome }}</strong> - R$ {{ produto.preco }}<br>
-    Categoria: {{ produto.categoria?.nome || 'Sem categoria' }}
-    <button [routerLink]="['/produto/editar', produto.id]">Editar</button>
-    <button (click)="deletar(produto)">Excluir</button>
-  </li>
-</ul>

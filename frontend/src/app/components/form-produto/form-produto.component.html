@@ -1,56 +1,42 @@
-<h2>{{ modoEdicao ? 'Editar Produto' : 'Novo Produto' }}</h2>
+<h2 style="text-align: center; margin-bottom: 2rem;">
+  {{ modoEdicao ? 'Editar Produto' : 'Novo Produto' }}
+</h2>
 
-<form #produtoForm="ngForm" (ngSubmit)="salvar()">
-  <label>
-    Nome:
-    <input type="text" name="nome" [(ngModel)]="produto.nome" required />
-  </label>
-  <div *ngIf="produtoForm.submitted && !produto.nome" style="color:red;">
-    Nome é obrigatório
+<form #produtoForm="ngForm" (ngSubmit)="salvar()" style="max-width: 500px; margin: auto;">
+
+  <div style="margin-bottom: 1rem;">
+    <label>Nome:</label><br />
+    <input type="text" name="nome" [(ngModel)]="produto.nome" required style="width: 100%;" />
+    <div *ngIf="produtoForm.submitted && !produto.nome" style="color:red;">Nome é obrigatório</div>
   </div>
 
-  <br />
-
-  <label>
-    Descrição:
-    <input type="text" name="descricao" [(ngModel)]="produto.descricao" />
-  </label>
-
-  <br />
-
-  <label>
-    Preço:
-    <input type="number" name="preco" [(ngModel)]="produto.preco" required min="0.01" step="0.01" />
-  </label>
-  <div *ngIf="produtoForm.submitted && produto.preco < 0.01" style="color:red;">
-    Preço deve ser maior que zero
+  <div style="margin-bottom: 1rem;">
+    <label>Descrição:</label><br />
+    <input type="text" name="descricao" [(ngModel)]="produto.descricao" style="width: 100%;" />
   </div>
 
-  <br />
-
-  <label>
-    Quantidade em Estoque:
-    <input type="number" name="quantidadeEstoque" [(ngModel)]="produto.quantidadeEstoque" required min="0" />
-  </label>
-  <div *ngIf="produtoForm.submitted && produto.quantidadeEstoque < 0" style="color:red;">
-    Quantidade deve ser maior ou igual a zero
+  <div style="margin-bottom: 1rem;">
+    <label>Preço:</label><br />
+    <input type="number" name="preco" [(ngModel)]="produto.preco" required min="0.01" step="0.01" style="width: 100%;" />
+    <div *ngIf="produtoForm.submitted && produto.preco < 0.01" style="color:red;">Preço deve ser maior que zero</div>
   </div>
 
-  <br />
+  <div style="margin-bottom: 1rem;">
+    <label>Quantidade em Estoque:</label><br />
+    <input type="number" name="quantidadeEstoque" [(ngModel)]="produto.quantidadeEstoque" required min="0" style="width: 100%;" />
+    <div *ngIf="produtoForm.submitted && produto.quantidadeEstoque < 0" style="color:red;">Quantidade deve ser ≥ 0</div>
+  </div>
 
-  <label>
-    Categoria:
-    <select name="categoria" [(ngModel)]="produto.categoria" required>
+  <div style="margin-bottom: 1rem;">
+    <label>Categoria:</label><br />
+    <select name="categoria" [(ngModel)]="produto.categoria" required style="width: 100%;">
       <option *ngFor="let cat of categorias" [ngValue]="cat">{{ cat.nome }}</option>
     </select>
-
-  </label>
-  <div *ngIf="produtoForm.submitted && !produto.categoria?.id" style="color:red;">
-    Categoria é obrigatória
+    <div *ngIf="produtoForm.submitted && !produto.categoria?.id" style="color:red;">Categoria é obrigatória</div>
   </div>
 
-  <br /><br />
-
-  <button type="submit">Salvar</button>
-  <button type="button" (click)="cancelar()">Cancelar</button>
+  <div style="text-align: center; margin-top: 2rem;">
+    <button type="submit">Salvar</button>
+    <button type="button" (click)="cancelar()" style="margin-left: 1rem;">Cancelar</button>
+  </div>
 </form>
